@@ -3,20 +3,20 @@ package com.imaginea.codez.dao;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.imaginea.codez.form.Artifact;
 
+@Transactional
+@Repository
 public class ArtifactDAOImpl implements ArtifactDAO {
 
-	
-	private HibernateTemplate hibernateTemplate;
+	private SessionFactory sessionFactory;
 
 	@Override
-	@Transactional
 	public void addArtifact(Artifact artifact) {
-		hibernateTemplate.save(artifact);
+		sessionFactory.getCurrentSession().save(artifact);
 	}
 
 	@Override
@@ -31,9 +31,18 @@ public class ArtifactDAOImpl implements ArtifactDAO {
 
 	}
 
-	public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
-		this.hibernateTemplate = hibernateTemplate;
+	@Override
+	public boolean isArtifactExist(Artifact artifact) {
+		String query = "select ID from " + Artifact.class.getName()
+				+ " where GROUPID=? and ARTIFACTID=? and VERSION=? ";
+		return sessionFactory.getCurrentSession().createQuery(query)
+				.setParameter(0, artifact.getGroupId()).setParameter(1, artifact.getArtifactId())
+				.setParameter(2, artifact.getVersion()).setMaxResults(1).uniqueResult() != null;
+
 	}
 
-	
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+
 }

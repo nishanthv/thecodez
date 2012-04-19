@@ -10,4 +10,6 @@ public interface ArtifactDAO {
 	public List<Artifact> listArtifact();
 
 	public void removeArtifact(Integer id);
+	
+	public boolean isArtifactExist(Artifact artifact);
 }
