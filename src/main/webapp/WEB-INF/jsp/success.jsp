@@ -5,9 +5,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Criteria Added Successfully</title>
-</head>
+<title>Artifact has been added Successfully</title>
 <body>
 	<%=request.getAttribute("message")%>
 </body>
+</head>
+<br></br>
+<body>
+	<a>To Add more Artifacts </a>
+	<a href="addArtifact.html"> Click Here</a>
+</body>
+
 </html>

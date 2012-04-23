@@ -74,7 +74,7 @@
 		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		<property name="exceptionMappings">
 			<props>
-				<prop key="com.imaginea.codez.exception.CodezException">codezException</prop>
+				<prop key="com.imaginea.codez.exception.BaseException">codezException</prop>
 			</props>
 		</property>
 	</bean>

@@ -6,7 +6,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.imaginea.codez.form.Artifact;
+import com.imaginea.codez.domain.Artifact;
 
 @Transactional
 @Repository
@@ -20,21 +20,14 @@ public class ArtifactDAOImpl implements ArtifactDAO {
 	}
 
 	@Override
-	public List<Artifact> listArtifact() {
-		// TODO Auto-generated method stub.
-		return null;
-	}
-
-	@Override
 	public void removeArtifact(Integer id) {
 		// TODO Auto-generated method stub.
 
 	}
 
 	@Override
-	public boolean isArtifactExist(Artifact artifact) {
-		String query = "select ID from " + Artifact.class.getName()
-				+ " where GROUPID=? and ARTIFACTID=? and VERSION=? ";
+	public boolean exist(Artifact artifact) {
+		String query = "select id from Artifact where groupId=? and artifactId=? and version=? ";
 		return sessionFactory.getCurrentSession().createQuery(query)
 				.setParameter(0, artifact.getGroupId()).setParameter(1, artifact.getArtifactId())
 				.setParameter(2, artifact.getVersion()).setMaxResults(1).uniqueResult() != null;
